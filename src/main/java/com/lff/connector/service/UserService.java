@@ -86,4 +86,22 @@ public class UserService {
         repository.save(domain);
         return UserResponse.from(domain);
     }
+
+        public UserResponse deactivateUser(Long id) {
+        UserDomain domain = repository.findById(id)
+                .orElseThrow(() -> new NotFoundException(String.format("Usuário com id '%d' não encontrado", id)));
+
+        domain.setActive(false);
+        repository.save(domain);
+        return UserResponse.from(domain);
+    }
+
+    public UserResponse activateUser(Long id) {
+        UserDomain domain = repository.findById(id)
+                .orElseThrow(() -> new NotFoundException(String.format("Usuário com id '%d' não encontrado", id)));
+
+        domain.setActive(true);
+        repository.save(domain);
+        return UserResponse.from(domain);
+    }
 }
