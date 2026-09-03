@@ -9,17 +9,13 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Table(name = "users")
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Getter
-@Setter
 @Builder
 public class UserDomain {
 
@@ -33,12 +29,15 @@ public class UserDomain {
     @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "login")
+    @Column(name = "login", unique = true, nullable = false)
     private String login;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true, nullable = false)
     private String email;
 
-    @Column(name = "Ativo", nullable = false)
+    @Column(name = "password", nullable = false)
+    private String password;
+
+    @Column(name = "ativo", nullable = false)
     private Boolean active;
 }
