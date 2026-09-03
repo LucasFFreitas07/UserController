@@ -72,4 +72,18 @@ public class UserService {
         repository.save(domain);
         return UserResponse.from(domain);
     }
+
+    public UserResponse updateUser(Long id, UserRequest user) {
+        validateFields(user);
+        UserDomain domain = repository.findById(id)
+                .orElseThrow(() -> new NotFoundException(String.format("Usuário com id '%d' não encontrado", id)));
+
+        domain.setFirstName(user.first_name());
+        domain.setLastName(user.last_name());
+        domain.setLogin(user.login());
+        domain.setEmail(user.email());
+
+        repository.save(domain);
+        return UserResponse.from(domain);
+    }
 }
