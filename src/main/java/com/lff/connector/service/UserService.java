@@ -38,14 +38,17 @@ public class UserService {
         }
     }
 
-    public UserDomain getById(Long id) {
+    public UserResponse getById(Long id) {
 
-        return this.repository.findById(id)
+        UserDomain user = this.repository.findById(id)
                 .orElseThrow(() -> new NotFoundException(String.format("Usuário com id '%d' não encontrado", id)));
+        return UserResponse.from(user);
     }
 
-    public List<UserDomain> getAll() {
-        return this.repository.findAll();
+    public List<UserResponse> getAll() {
+        return this.repository.findAll().stream()
+                .map(UserResponse::from)
+                .toList();
     }
 
     @Transactional
@@ -67,11 +70,6 @@ public class UserService {
         domain.setActive(false);
 
         repository.save(domain);
-
-        return new UserResponse(
-                domain.getFirstName(),
-                domain.getLastName(),
-                domain.getLogin(),
-                domain.getEmail());
+        return UserResponse.from(domain);
     }
 }

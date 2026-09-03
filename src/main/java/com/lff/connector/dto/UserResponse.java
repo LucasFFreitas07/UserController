@@ -6,5 +6,12 @@ public record UserResponse(
     String login,
     String email
 ) {
-
+    public static UserResponse from(com.lff.connector.domain.UserDomain user) {
+        return new UserResponse(
+            user.getFirstName(),
+            user.getLastName(),
+            user.getLogin(),
+            user.getEmail()
+        );
+    }
 }

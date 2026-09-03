@@ -29,12 +29,12 @@ public class UserController {
     }
 
     @GetMapping
-    public List<UserDomain> getAll() {
+    public List<UserResponse> getAll() {
         return service.getAll();
     }
 
     @GetMapping("{id}")
-    public UserDomain getById(@PathVariable Long id) {
+    public UserResponse getById(@PathVariable Long id) {
         return service.getById(id);
     }
 
